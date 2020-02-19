@@ -1,23 +1,20 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
-import createRootReducer from '../reducers';
+import rootReducer from '.';
 import * as counterActions from '../actions/counter';
-import type { counterStateType } from '../reducers/types';
 
 const history = createHashHistory();
 
-const rootReducer = createRootReducer(history);
-
-const configureStore = (initialState?: counterStateType) => {
+const configureStore = initialState => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
 
   // Thunk Middleware
-  middleware.push(thunk);
+  middleware.push(thunkMiddleware);
 
   // Logging Middleware
   const logger = createLogger({
@@ -54,13 +51,13 @@ const configureStore = (initialState?: counterStateType) => {
   const enhancer = composeEnhancers(...enhancers);
 
   // Create Store
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStore(rootReducer(history), initialState, enhancer);
 
   if (module.hot) {
     module.hot.accept(
-      '../reducers',
+      './',
       // eslint-disable-next-line global-require
-      () => store.replaceReducer(require('../reducers').default)
+      () => store.replaceReducer(require('./').default)
     );
   }
 
