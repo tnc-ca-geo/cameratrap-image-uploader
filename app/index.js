@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
-import Root from './containers/Root';
+import Root from './views/components/Root';
 import { configureStore, history } from './state/configureStore';
 import './app.global.css';
 

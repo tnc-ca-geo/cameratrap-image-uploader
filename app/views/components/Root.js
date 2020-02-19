@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import { hot } from 'react-hot-loader/root';
-import Routes from '../Routes';
+import Routes from '../routes/Routes';
 
 const Root = ({ store, history }) => (
   <Provider store={store}>
@@ -13,8 +13,7 @@ const Root = ({ store, history }) => (
   </Provider>
 );
 
-// TODO: figure out best practice for making eslint and
-// react proptypes happy:
+// TODO: figure out best practice for making eslint and react proptypes happy:
 // https://github.com/yannickcr/eslint-plugin-react/issues/904
 Root.propTypes = {
   store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
